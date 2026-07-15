@@ -1,6 +1,7 @@
 <template>
   <div class="expense-container">
-    <ul>
+    <h2 class="list-title">Expenses</h2>
+    <ul class="expense-list">
       <!-- <li v-for="expense in expenses" :key="expense.id"> </li>-->
       <li>Placeholder: Dog water</li>
       <li>Placeholder: Phone Bill</li>
