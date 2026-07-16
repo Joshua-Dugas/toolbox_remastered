@@ -1,11 +1,28 @@
+<script setup lang="ts">
+import { useExpensesStore } from '@/stores/ExpensesStore'
+const expenseStore = useExpensesStore()
+
+function formatAmount(amount: number): string {
+  return `$${amount.toFixed(2)}`
+}
+
+function deleteExpense(index: number) {
+  expenseStore.expenses.splice(index, 1)
+}
+</script>
+
 <template>
   <div class="expense-container">
     <h2 class="list-title">Expenses</h2>
     <ul class="expense-list">
-      <!-- <li v-for="expense in expenses" :key="expense.id"> </li>-->
-      <li>Placeholder: Dog water</li>
-      <li>Placeholder: Phone Bill</li>
-      <li>Placeholder: Gas</li>
+      <li v-for="(expense, index) in expenseStore.totalExpenses" :key="index">
+        <span>
+          {{ expense.description }} | {{ formatAmount(expense.amount) }} |
+          {{ expense.account }}</span
+        >
+        <button @click="deleteExpense(index)">Delete</button>
+        <br />
+      </li>
     </ul>
   </div>
 </template>

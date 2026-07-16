@@ -1,9 +1,33 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useExpensesStore } from '@/stores/ExpensesStore'
+import type { Expense } from '@/types/Expense'
+
+const expensesStore = useExpensesStore()
+
+const expenseData = ref<Expense>({
+  type: '',
+  description: '',
+  amount: 0,
+  account: '',
+})
+
+function addExpense() {
+  expensesStore.addExpense(expenseData.value)
+  resetForm()
+}
+
+function resetForm() {
+  expenseData.value = { type: '', description: '', amount: 0, account: '' }
+}
+</script>
+
 <template>
   <div class="form-container">
-    <form>
+    <form @submit.prevent="addExpense">
       <div class="form-group">
         <label for="type">Type</label>
-        <select id="type" name="Type">
+        <select id="type" name="Type" v-model="expenseData.type">
           <option value="Expense">Expense</option>
           <option value="Income">Income</option>
         </select>
@@ -11,23 +35,36 @@
 
       <div class="form-group">
         <label for="description">Description</label>
-        <input type="text" id="description" name="description" placeholder="Phone Bill" />
+        <input
+          type="text"
+          id="description"
+          name="description"
+          placeholder="Phone Bill"
+          v-model="expenseData.description"
+        />
       </div>
 
       <div class="form-group">
         <label for="amount">Amount</label>
-        <input type="number" id="amount" name="amount" placeholder="0.00" step="0.01" />
+        <input
+          type="number"
+          id="amount"
+          name="amount"
+          placeholder="0.00"
+          step="0.01"
+          v-model="expenseData.amount"
+        />
       </div>
 
       <div class="form-group">
         <label for="account">Account / Category</label>
-        <select id="account" name="Account">
+        <select id="account" name="Account" v-model="expenseData.account">
           <option value="Bills">Bills</option>
           <option value="Savings">Savings</option>
         </select>
       </div>
 
-      <button type="submit" class="submit-btn">Add Transaction</button>
+      <button type="submit" class="submit-btn">Add Expense/Income</button>
     </form>
   </div>
 </template>
