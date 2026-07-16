@@ -15,7 +15,7 @@ function deleteExpense(index: number) {
   <div class="expense-container">
     <h2 class="list-title">Expenses</h2>
     <ul class="expense-list">
-      <li v-for="(expense, index) in expenseStore.totalExpenses" :key="index">
+      <li class="expense-item" v-for="(expense, index) in expenseStore.totalExpenses" :key="index">
         <span>
           {{ expense.description }} | {{ formatAmount(expense.amount) }} |
           {{ expense.account }}</span
@@ -60,6 +60,7 @@ function deleteExpense(index: number) {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
   transition: all 0.2s ease;
 }
 
@@ -101,7 +102,7 @@ function deleteExpense(index: number) {
 
 /* Empty state */
 .expense-list:empty::before {
-  content: 'No transactions yet...';
+  content: 'No entries yet...';
   display: block;
   text-align: center;
   padding: 3rem 1rem;

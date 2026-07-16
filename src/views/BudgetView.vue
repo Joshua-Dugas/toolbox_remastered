@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ExpenseAnalysis from '@/components/budget/ExpenseAnalysis.vue'
 import ExpenseEntry from '@/components/budget/ExpenseEntry.vue'
 import ExpenseList from '@/components/budget/ExpenseList.vue'
 </script>
@@ -10,6 +11,7 @@ import ExpenseList from '@/components/budget/ExpenseList.vue'
     <div class="budget-layout">
       <ExpenseEntry />
       <ExpenseList />
+      <ExpenseAnalysis />
     </div>
   </div>
 </template>

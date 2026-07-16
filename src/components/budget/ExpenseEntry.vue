@@ -13,8 +13,24 @@ const expenseData = ref<Expense>({
 })
 
 function addExpense() {
+  if (!validateForm()) {
+    alert('Missing fields in form. Try Again.')
+    return
+  }
   expensesStore.addExpense(expenseData.value)
   resetForm()
+}
+
+function validateForm() {
+  if (
+    !expenseData.value.type ||
+    !expenseData.value.description ||
+    expenseData.value.amount <= 0 ||
+    !expenseData.value.account
+  ) {
+    return false
+  }
+  return true
 }
 
 function resetForm() {
@@ -28,6 +44,7 @@ function resetForm() {
       <div class="form-group">
         <label for="type">Type</label>
         <select id="type" name="Type" v-model="expenseData.type">
+          <option value="" disabled selected>Select an Type</option>
           <option value="Expense">Expense</option>
           <option value="Income">Income</option>
         </select>
@@ -58,7 +75,13 @@ function resetForm() {
 
       <div class="form-group">
         <label for="account">Account / Category</label>
-        <select id="account" name="Account" v-model="expenseData.account">
+        <select
+          id="account"
+          name="Account"
+          placeholder="Select An Account"
+          v-model="expenseData.account"
+        >
+          <option value="" disabled selected>Select an Account</option>
           <option value="Bills">Bills</option>
           <option value="Savings">Savings</option>
         </select>
