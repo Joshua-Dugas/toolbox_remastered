@@ -11,4 +11,9 @@
       "path": "./tsconfig.vitest.json",
     },
   ],
+  //TypeOrm setup
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  }
 }
