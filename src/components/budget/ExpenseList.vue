@@ -1,27 +1,43 @@
 <script setup lang="ts">
 import { useExpensesStore } from '@/stores/ExpensesStore'
+import { onMounted } from 'vue'
 const expenseStore = useExpensesStore()
+
+onMounted(() => {
+  expenseStore.fetchExpenses()
+})
 
 function formatAmount(amount: number): string {
   return `$${amount.toFixed(2)}`
 }
 
-function deleteExpense(index: number) {
-  expenseStore.expenses.splice(index, 1)
+function deleteExpense(id: number | undefined) {
+  if (id == null) return
+  expenseStore.deleteExpense(id)
 }
+
 </script>
 
 <template>
-  <div class="expense-container">
+<div class="expense-container">
     <h2 class="list-title">Expenses</h2>
-    <ul class="expense-list">
-      <li class="expense-item" v-for="(expense, index) in expenseStore.totalExpenses" :key="index">
+
+    <p v-if="expenseStore.loading" class="status">Loading...</p>
+    <p v-else-if="expenseStore.error" class="status error">
+      {{ expenseStore.error }}
+    </p>
+
+    <ul v-else class="expense-list">
+      <li
+        class="expense-item"
+        v-for="expense in expenseStore.totalExpenses"
+        :key="expense.id"
+      >
         <span>
           {{ expense.description }} | {{ formatAmount(expense.amount) }} |
-          {{ expense.account }}</span
-        >
-        <button @click="deleteExpense(index)">Delete</button>
-        <br />
+          {{ expense.account }}
+        </span>
+        <button @click="deleteExpense(expense.id)">Delete</button>
       </li>
     </ul>
   </div>

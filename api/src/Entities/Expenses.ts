@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Expense {
   @PrimaryGeneratedColumn()
-  id: number = 0;
+  id!: number;
 
   @Column()
   type: string = '';
@@ -15,5 +15,5 @@ export class Expense {
   amount: number = 0;
 
   @Column()
-  Account: string = '';
+  account: string = '';
 }

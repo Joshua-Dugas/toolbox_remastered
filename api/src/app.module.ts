@@ -2,17 +2,21 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-//This is the nest.js way of creating a typeORM datasource
+import { Expense } from './Entities/Expenses';
+import { ExpenseController } from './Controllers/ExpenseController';
+import { ExpenseService } from './Services/ExpenseService';
+//DO NOT FORGET TO REGISTER YOUR CONTROLLERS AND SERVICES FOOL
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
       database: 'data.db',
-      entities: [__dirname + '/Entities/**/*{.ts,.js}'],
+      entities: [Expense],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([Expense]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ExpenseController],
+  providers: [AppService, ExpenseService],
 })
 export class AppModule {}
