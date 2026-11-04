@@ -24,6 +24,10 @@ function calculateTotalIncome() {
   }
   return total
 }
+
+function calculateNetIncome() {
+  return calculateTotalIncome() - calculateTotalExpenses()
+}
 </script>
 
 <template>
@@ -39,6 +43,10 @@ function calculateTotalIncome() {
       <div class="summary-card income">
         <div class="label">Total Income</div>
         <div class="amount positive">+${{ calculateTotalIncome().toFixed(2) }}</div>
+      </div>
+      <div class="summary-card income">
+        <div class="label">Net Income</div>
+        <div class="amount positive">+${{ calculateNetIncome().toFixed(2) }}</div>
       </div>
     </div>
   </div>

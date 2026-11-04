@@ -20,7 +20,7 @@ function deleteExpense(id: number | undefined) {
 
 <template>
 <div class="expense-container">
-    <h2 class="list-title">Expenses</h2>
+    <h2 class="list-title">Expenses and Incomes</h2>
 
     <p v-if="expenseStore.loading" class="status">Loading...</p>
     <p v-else-if="expenseStore.error" class="status error">
@@ -34,8 +34,10 @@ function deleteExpense(id: number | undefined) {
         :key="expense.id"
       >
         <span>
-          {{ expense.description }} | {{ formatAmount(expense.amount) }} |
-          {{ expense.account }}
+          Type:{{ expense.type}}<br>
+          Description:{{ expense.description }}<br>
+          Amount:{{ formatAmount(expense.amount) }}<br>
+          Account:{{ expense.account }}
         </span>
         <button @click="deleteExpense(expense.id)">Delete</button>
       </li>
